@@ -4,8 +4,9 @@ const PokemonCard = ({ guessedPokemon, feedback }) => {
     if (!guessedPokemon) return null;
 
     return (
+        <div className='custom-card'>
         <Card className='mt-4' style={{width: '18rem'}}>
-            <Card.Img variant='top' src={guessedPokemon.sprites.front_default} alt={guessedPokemon.name} />
+            <Card.Img variant='top' src={guessedPokemon.sprites.front_default} alt={guessedPokemon.name} class="row"  />
             <Card.Body>
                 <Card.Title className='text-capitalize'>{guessedPokemon.name}</Card.Title>
                 <Card.Text>
@@ -23,6 +24,7 @@ const PokemonCard = ({ guessedPokemon, feedback }) => {
                 </Card.Text>
             </Card.Body>
         </Card>
+        </div>
     );
 };
 

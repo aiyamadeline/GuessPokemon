@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import PokemonCard from './createCard';
-
+import Suggestions from './Suggestions';
+import { useFetchAllPokemonNames } from './fetchAllPoke';
+//import PokemonAutocomplete from './PokemonAutoComp';
 
 const fetchPoke = async (randomId) => {
     const reponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
@@ -26,13 +28,14 @@ const PokemonWordle = () => {
 
     const [ChosenPokemon, SetChosenPokemon] = useState('');
     const [userGuess, setUserGuess] = useState("");
-    //const [filteredPoke, setFilteredPoke] = useState([])
     const [guessedPokemon, setGuessedPokemon] = useState([]); 
     const [feedback, setFeedback] = useState("");
     const [previousGuesses, setPreviousGuesses] = useState([]);
-    //const [showCard, setShowCard] = useState(false); 
+    //const [allPokemonNames, setAllPokemonNames] = useState([]);
+    const [suggestions, SetSuggestions] = useState([])
     
-
+    const { allPokemonNames, loading, error } = useFetchAllPokemonNames();
+    //const  [selectedPoke, setSelectedPoke] = useState(null);
 
     useEffect(() => {
         const getPokemon = async () => {
@@ -48,6 +51,32 @@ const PokemonWordle = () => {
         };
         getPokemon(); 
     }, []);
+
+        const handleInputChange = (e) => {
+        setUserGuess(e.target.value);
+
+        if (e.target.value.length > 0 && allPokemonNames.length > 0) {
+            // Filter Pokémon names based on the user's input
+            const filteredSuggestions = allPokemonNames.filter(pokemon =>
+              pokemon.toLowerCase().startsWith(e.target.value.toLowerCase())
+            );
+            SetSuggestions(filteredSuggestions);
+          } else {
+            SetSuggestions([]);
+          }
+        };
+        const handleSuggestionClick = (suggestion) => {
+            setUserGuess(suggestion); // Set the input to the clicked suggestion
+            SetSuggestions([]); // Hide suggestions after a selection
+          };
+        
+        if (loading) {
+            return <div>Loading Pokémon names...</div>;
+        }
+        if (error) {
+            return <div>{error}</div>;
+        }
+
 
 const handleGuessSubmit = async (e) => {
     e.preventDefault();
@@ -88,8 +117,6 @@ const handleGuessSubmit = async (e) => {
         setFeedback({ name: "", error: "Invalid Pokémon name, please try again." });
         console.log("failed to fetch guessed Pokemon", error)
     }
-
-
 };
 
 return (
@@ -102,13 +129,21 @@ return (
                 className='form-control'
                 placeholder='Enter Pokemon name'
                 value={userGuess}
-                onChange={(e) => setUserGuess(e.target.value)}
+                //onChange={(e) => setUserGuess(e.target.value)}
+                onChange={handleInputChange}
                 />
+                <Suggestions
+                suggestions={suggestions}
+                handleSelectSuggestion={handleSuggestionClick}
+                />
+                
             </div>
             <button type='submit' className='btn btn-primary mt-2'>
                 Guess
             </button>
+
         </form>
+        {/* <PokemonAutocomplete onSelectPokemon={handlePokemonSelect} /> */}
         {previousGuesses.length > 0 && (
             <div className='mt-4'>
                 <h4>Previous Guesses:</h4>
@@ -128,11 +163,3 @@ return (
 
 
 export default PokemonWordle;
-
-
-// Generation
-//Type1
-//Type 2
-//
-//Height = 19
-//Weight

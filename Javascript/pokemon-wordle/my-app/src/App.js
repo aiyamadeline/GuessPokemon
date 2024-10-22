@@ -1,5 +1,5 @@
 import './App.css';
-import Homepage from './components/homePage';
+import Homepage from './components/Suggestions';
 import GetPokemons from './components/getPoke';
 import SearchBar from './components/navBar';
 
