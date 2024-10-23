@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import PokemonCard from './createCard';
 import Suggestions from './Suggestions';
 import { useFetchAllPokemonNames } from './fetchAllPoke';
-//import PokemonAutocomplete from './PokemonAutoComp';
+import '../style/getPoke.css'
+
 
 const fetchPoke = async (randomId) => {
     const reponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
@@ -31,11 +32,9 @@ const PokemonWordle = () => {
     const [guessedPokemon, setGuessedPokemon] = useState([]); 
     const [feedback, setFeedback] = useState("");
     const [previousGuesses, setPreviousGuesses] = useState([]);
-    //const [allPokemonNames, setAllPokemonNames] = useState([]);
     const [suggestions, SetSuggestions] = useState([])
     
     const { allPokemonNames, loading, error } = useFetchAllPokemonNames();
-    //const  [selectedPoke, setSelectedPoke] = useState(null);
 
     useEffect(() => {
         const getPokemon = async () => {
@@ -121,44 +120,40 @@ const handleGuessSubmit = async (e) => {
 
 return (
     <>
-    <div className='container'>
-        <form onSubmit={handleGuessSubmit}>
-            <div className='form-group'>
-                <input
-                type='text'
-                className='form-control'
-                placeholder='Enter Pokemon name'
-                value={userGuess}
-                //onChange={(e) => setUserGuess(e.target.value)}
-                onChange={handleInputChange}
-                />
-                <Suggestions
-                suggestions={suggestions}
-                handleSelectSuggestion={handleSuggestionClick}
-                />
-                
-            </div>
-            <button type='submit' className='btn btn-primary mt-2'>
-                Guess
-            </button>
+    <form onSubmit={handleGuessSubmit} className='move-down'>
+        <div className='form-group'>
+            <input
+            type='text'
+            className='form-control'
+            placeholder='Enter Pokemon name'
+            value={userGuess}
+            onChange={handleInputChange}
+            />
+            <Suggestions
+            suggestions={suggestions}
+            handleSelectSuggestion={handleSuggestionClick}
+            />
+        </div>
+        <button type='submit' className='btn btn-primary mt-2'>
+            Guess
+        </button>
 
-        </form>
-        {/* <PokemonAutocomplete onSelectPokemon={handlePokemonSelect} /> */}
-        {previousGuesses.length > 0 && (
-            <div className='mt-4'>
-                <h4>Previous Guesses:</h4>
-                {previousGuesses.map((guess, index) => (
-                <PokemonCard 
-                key={index}
-                guessedPokemon={guess.guessedPokemon}
-                feedback={guess.feedback}
-                />
-              ))}
-            </div>
-        )}
-    </div>
+    </form>
+    {previousGuesses.length > 0 && (
+        <div className='row mt-4'>
+            <h4>Previous Guesses:</h4>
+            {previousGuesses.map((guess, index) => (
+            <PokemonCard 
+            key={index}
+            guessedPokemon={guess.guessedPokemon}
+            feedback={guess.feedback}
+            />
+        ))}
+        </div>
+    )}
+
     </>
-);
+    );
 };
 
 

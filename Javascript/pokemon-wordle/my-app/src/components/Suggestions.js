@@ -4,7 +4,6 @@ const Suggestions = ({ suggestions, handleSelectSuggestion }) => {
     if (suggestions.length === 0) return null;
 
 
-
     return (
         <ul className="list-group mt-1">
             {suggestions.map((suggestions, index) => (

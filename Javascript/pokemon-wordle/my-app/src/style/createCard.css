@@ -1,4 +1,21 @@
 .custom-card {
-    width: 15rem;
-    height: 25rem;
+width: 15rem;
+margin: 0 auto;
+}
+
+.custom-card img {
+max-width: 100%;
+height:auto;
+max-height: 300%;
+}
+@media (max-width: 786px) {
+.custom-card {
+    width: 14rem;
+}
+}
+
+@media (min-width: 769px) {
+.custom-card {
+    width: 24rem;
+}
 }

@@ -2,6 +2,7 @@ import './App.css';
 import Homepage from './components/Suggestions';
 import GetPokemons from './components/getPoke';
 import SearchBar from './components/navBar';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
 
@@ -9,10 +10,10 @@ function App() {
   return (
     <> 
     <div className="App">
-      <div>
-      {/* <SearchBar/> */}
-      <GetPokemons/>
-      </div>
+      <header className='header-1'>
+        <h1>Pokemon Wordle</h1>
+      </header>
+      <GetPokemons />
     </div>
     </>
   );
