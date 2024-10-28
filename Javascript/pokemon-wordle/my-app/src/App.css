@@ -1,17 +1,25 @@
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App {
   min-height: 100vh; 
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: black;
 }
 
 .header-1 {
   padding: 10px;
+}
+.title {
+  font-family: 'Pokemon Solid', sans-serif;
+  font-size: 80px;
+  color: #ffcb05;
+  outline: #2a75bb;
+                                                
+}
+
+h1 {
+  -webkit-text-stroke-width: 5px;
+  -webkit-text-stroke-color: #2a75bb;
+  
 }

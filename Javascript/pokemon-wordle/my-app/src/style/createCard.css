@@ -1,21 +1,61 @@
-.custom-card {
-width: 15rem;
-margin: 0 auto;
+
+@media (max-width: 768px) {
+    .custom-card {
+        width: 100%;
+        margin: 10px auto;
+    } 
+    .row.gx-4 {
+        justify-content: center;
+        gap: 1rem;
+    }
+    .col-md-3 {
+        width: 100%
+    }
+    
 }
 
-.custom-card img {
-max-width: 100%;
-height:auto;
-max-height: 300%;
-}
-@media (max-width: 786px) {
-.custom-card {
-    width: 14rem;
-}
+@media (max-width: 576px) {
+    .custom-card {
+        margin: 5px auto;
+        width: 100%;
+    }
+    .row.gx-4 {
+        gap: 0.5rem;
+    }
 }
 
-@media (min-width: 769px) {
 .custom-card {
-    width: 24rem;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    border-radius: 10px;
+
 }
+
+.card-1 {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.card-1:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+    transform: translate(-50%, -50%) rotate(30deg);
+    pointer-events: none; 
 }

@@ -11,7 +11,7 @@ function App() {
     <> 
     <div className="App">
       <header className='header-1'>
-        <h1>Pokemon Wordle</h1>
+        <h1 className='title'>Pokemon Wordle</h1>
       </header>
       <GetPokemons />
     </div>

@@ -33,6 +33,7 @@ const PokemonWordle = () => {
     const [feedback, setFeedback] = useState("");
     const [previousGuesses, setPreviousGuesses] = useState([]);
     const [suggestions, SetSuggestions] = useState([])
+    const [isCorrect, setIsCorrect] = useState(false);
     
     const { allPokemonNames, loading, error } = useFetchAllPokemonNames();
 
@@ -65,8 +66,8 @@ const PokemonWordle = () => {
           }
         };
         const handleSuggestionClick = (suggestion) => {
-            setUserGuess(suggestion); // Set the input to the clicked suggestion
-            SetSuggestions([]); // Hide suggestions after a selection
+            setUserGuess(suggestion);
+            SetSuggestions([]);
           };
         
         if (loading) {
@@ -81,10 +82,18 @@ const handleGuessSubmit = async (e) => {
     e.preventDefault();
     if(!ChosenPokemon) return;
     
-    try{
+    try {
         const guessedPokemonData = await fetchPoke(userGuess.toLowerCase());
         setGuessedPokemon(guessedPokemonData);
 
+        if (guessedPokemonData.name === ChosenPokemon.name) {
+            setIsCorrect(true);
+            setFeedback("Correct!")
+            
+        }else {
+            setIsCorrect(false);
+        
+        }
         const comparisonFeedback = {
             name: guessedPokemonData.name,
             height: guessedPokemonData.height === ChosenPokemon.height
@@ -105,16 +114,16 @@ const handleGuessSubmit = async (e) => {
               : "Wrong Type",
             generation: getGeneration(guessedPokemonData.id) === getGeneration(ChosenPokemon.id)
               ? "Correct"
-              : "Wrong Generation"
+              : "Wrong Generation",
           };
 
         setFeedback(comparisonFeedback);
-        setPreviousGuesses((prev) => [...prev, {guessedPokemon: guessedPokemonData, feedback: comparisonFeedback}]);
-        //setShowCard(true);
+        setPreviousGuesses((prev) => [{guessedPokemon: guessedPokemonData, feedback: comparisonFeedback || "Correct!" }, ...prev]);
+    
     
     }catch (error) {
         setFeedback({ name: "", error: "Invalid Pokémon name, please try again." });
-        console.log("failed to fetch guessed Pokemon", error)
+        console.log("Failed to fetch guessed Pokemon", error)
     }
 };
 
@@ -140,8 +149,9 @@ return (
 
     </form>
     {previousGuesses.length > 0 && (
-        <div className='row mt-4'>
-            <h4>Previous Guesses:</h4>
+        <div className="container">
+            <h4 className='mt-4'>Previous Guesses:</h4>
+            <div className='row gy-5 gx-5'>
             {previousGuesses.map((guess, index) => (
             <PokemonCard 
             key={index}
@@ -149,6 +159,8 @@ return (
             feedback={guess.feedback}
             />
         ))}
+            </div>
+            <h3> {ChosenPokemon.name} </h3>
         </div>
     )}
 
