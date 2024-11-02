@@ -156,9 +156,9 @@ return (
     <div className="container mt-3">
         <h4>Previous Guesses:</h4>
         <Container>
-            <Row className="gx-3 gy-4"> {/* Added gx-3 for spacing between columns */}
+            <Row className="gx-3 gy-5 mt-3"> 
                 {previousGuesses.map((guess, index) => (
-                    <Col key={index} xs={12} sm={6} md={6} lg={4} xl={3}> {/* Use md={3} to control column width */}
+                    <Col key={index} xs={12} sm={6} md={6} lg={4} xl={3}>
                         <PokemonCard 
                             guessedPokemon={guess.guessedPokemon}
                             feedback={guess.feedback}

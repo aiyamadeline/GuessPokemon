@@ -32,9 +32,11 @@
     perspective: 1000px;
     width: 100%;
     margin: 1rem auto;
+    margin-bottom: 1rem;
     position: relative;
     min-width: 250px;
     max-width: 300px;
+    min-height: 100%;
 
 }
 
@@ -144,9 +146,9 @@
 }
 
 .row {
-    margin-top: 2rem;
+    margin-top: 10rem;
 }
 
-.custom-card.flip .flip-card-inner {
+.custom-card.flip:hover .flip-card-inner {
     transform: rotateY(180deg);
 }

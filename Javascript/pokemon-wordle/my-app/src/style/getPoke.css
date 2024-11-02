@@ -37,24 +37,27 @@
   justify-content: center; 
   gap: 1rem; 
   position: relative;
+  padding-bottom: 2rem;
   padding-top: 7rem;
   
 }
 
-.row.gx-4 {
+.row {
     justify-content: flex-start;
+    margin-bottom: 15rem;
 }
 .col-md-3 {
     width: 100%;
     margin-bottom: 20px;
 }
 
-
 .container {
     margin-top: 6rem;
     position: relative;
+    width: 100%;
 }
 
 .move-down {
     margin-top: 1rem;
 }
+
