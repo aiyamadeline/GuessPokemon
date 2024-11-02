@@ -3,6 +3,9 @@ import PokemonCard from './createCard';
 import Suggestions from './Suggestions';
 import { useFetchAllPokemonNames } from './fetchAllPoke';
 import '../style/getPoke.css'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 const fetchPoke = async (randomId) => {
@@ -146,23 +149,30 @@ return (
         <button type='submit' className='btn btn-primary mt-2'>
             Guess
         </button>
-
     </form>
+
+
     {previousGuesses.length > 0 && (
-        <div className="container">
-            <h4 className='mt-4'>Previous Guesses:</h4>
-            <div className='row gy-5 gx-5'>
-            {previousGuesses.map((guess, index) => (
-            <PokemonCard 
-            key={index}
-            guessedPokemon={guess.guessedPokemon}
-            feedback={guess.feedback}
-            />
-        ))}
-            </div>
-            <h3> {ChosenPokemon.name} </h3>
-        </div>
+    <div className="container mt-3">
+        <h4>Previous Guesses:</h4>
+        <Container>
+            <Row className="gx-3 gy-4"> {/* Added gx-3 for spacing between columns */}
+                {previousGuesses.map((guess, index) => (
+                    <Col key={index} xs={12} sm={6} md={6} lg={4} xl={3}> {/* Use md={3} to control column width */}
+                        <PokemonCard 
+                            guessedPokemon={guess.guessedPokemon}
+                            feedback={guess.feedback}
+                            isCorrect={isCorrect && guess.guessedPokemon.name === ChosenPokemon.name}
+                        />
+                    </Col>
+                ))}
+            </Row>
+        </Container> 
+        <h5>{ChosenPokemon.name}</h5>
+    </div>
     )}
+
+
 
     </>
     );

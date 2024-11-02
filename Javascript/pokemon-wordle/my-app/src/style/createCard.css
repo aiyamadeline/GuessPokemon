@@ -3,9 +3,10 @@
     .custom-card {
         width: 100%;
         margin: 10px auto;
+        
     } 
     .row.gx-4 {
-        justify-content: center;
+        justify-content: flex-start;
         gap: 1rem;
     }
     .col-md-3 {
@@ -16,46 +17,136 @@
 
 @media (max-width: 576px) {
     .custom-card {
-        margin: 5px auto;
+        margin-bottom: 5px;
         width: 100%;
     }
     .row.gx-4 {
         gap: 0.5rem;
+        
     }
 }
 
 .custom-card {
-    color: white;
     font-family: 'Arial', sans-serif;
     border-radius: 10px;
+    perspective: 1000px;
+    width: 100%;
+    margin: 1rem auto;
+    position: relative;
+    min-width: 250px;
+    max-width: 300px;
 
 }
 
 .card-1 {
+    position: relative;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-    border-radius: 12px;
-    overflow: hidden;
-    position: relative;
-
+    /* -webkit-backdrop-filter: blur(50px); */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    width: 100%;
+    padding: 20px;
+    background-color: #f9f9f9;;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background-clip: padding-box;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-
+    overflow: hidden;
+    
 }
 
 .card-1:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 16px rgba(0, 0, 0, 0.25);
 }
 
 .card-1::before {
     content: "";
     position: absolute;
     top: 0;
-    left: 50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
-    transform: translate(-50%, -50%) rotate(30deg);
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.3),
+        rgba(0, 170, 255, 0.2),
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 0, 170, 0.2)
+    );
     pointer-events: none; 
+    mix-blend-mode: overlay;
+    animation: holographicMove 5s ease-in-out infinite;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
+    
+}
+
+.card-1::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.3) 25%,
+      rgba(255, 255, 255, 0) 70%
+    );
+    opacity: 0.8;
+    border-radius: inherit;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 1;
+    
+}
+
+@keyframes holographicMove {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+}
+/* .flip {
+    transform: rotateY(180deg);
+} */
+
+.flip-card-back, 
+.flip-card-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+}
+
+.row {
+    margin-top: 2rem;
+}
+
+.custom-card.flip .flip-card-inner {
+    transform: rotateY(180deg);
 }

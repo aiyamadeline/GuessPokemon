@@ -1,7 +1,12 @@
 import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import '../style/createCard.css';
+import 'animate.css';
 
-const PokemonCard = ({ guessedPokemon, feedback }) => {
+
+const PokemonCard = ({ guessedPokemon, feedback, isCorrect }) => {
     if (!guessedPokemon) return null;
     
     const primaryType = guessedPokemon.types[0].type.name;
@@ -52,28 +57,84 @@ const PokemonCard = ({ guessedPokemon, feedback }) => {
     }
 
     return (
-            <div className="col-md-3 mt-2 custom-card">
-                {/* `custom-card ${typeClass}` */}
-                <Card style={{ width: '15rem', ...cardStyle }} className='card-1' >
-                    <Card.Img
-                    variant='top' 
-                    src={guessedPokemon.sprites.front_default} 
-                    alt={guessedPokemon.name} 
-                    style={{ width:'100%', height: 'auto' }} />
-                    <Card.Body>
-                <Card.Title className='text-capitalize'>{guessedPokemon.name}</Card.Title>
-                <Card.Text>
-                    <strong>Height:</strong> {guessedPokemon.height} {getIcon(feedback.height)} <br />
-                    <strong>Weight:</strong> {guessedPokemon.weight} {getIcon(feedback.weight)} <br />
-                    <strong>Type 1:</strong> {guessedPokemon.types[0].type.name} {getIcon(feedback.type1)} <br />
-                    <strong>Type 2:</strong> {guessedPokemon.types[1]?.type.name || "None"} {getIcon(feedback.type2)} <br />
-                    {/* <strong>Gen: </strong> {guessedPokemon.generation} {getIcon(feedback.generation )} <br /> */}
-                </Card.Text>
-            </Card.Body>
-        </Card>
-        </div>
-    // </div>
-        
+            // <div className={`col-md-3 mt-5 custom-card ${isCorrect ? 'flip' : ''}`}>
+            //         <div className='flip-card-inner'>
+            //         <div className='flip-card-front'>
+            //             <Card style={{ width: '100%',  ...cardStyle}} className={`card-1 ${typeClass}`}>
+            //                 <Card.Img
+            //                     variant='top' 
+            //                     src={guessedPokemon.sprites.front_default} 
+            //                     alt={guessedPokemon.name} 
+            //                     style={{ width: '100%', height: 'auto' }}
+            //                 />
+            //                 <Card.Body>
+            //                     <Card.Title className='text-capitalize'>{guessedPokemon.name}</Card.Title>
+            //                     <Card.Text>
+            //                         <strong>Height:</strong> {guessedPokemon.height} {getIcon(feedback.height)} <br />
+            //                         <strong>Weight:</strong> {guessedPokemon.weight} {getIcon(feedback.weight)} <br />
+            //                         <strong>Type 1:</strong> {guessedPokemon.types[0].type.name} {getIcon(feedback.type1)} <br />
+            //                         <strong>Type 2:</strong> {guessedPokemon.types[1]?.type.name || "None"} {getIcon(feedback.type2)} <br />
+            //                         <strong>Gen: </strong> {guessedPokemon.generation} {getIcon(feedback.generation )} <br />
+            //                      </Card.Text>
+            //                 </Card.Body>
+            //             </Card>
+            //         </div>
+            //             <div className="flip-card-back" style={{ ...cardStyle }}>
+            //                 <Card style={{ width: '15rem' }} className={`card-1 ${typeClass}`}>
+            //                     <Card.Body>
+            //                         <Card.Title className='text-capitalize'> {guessedPokemon.name}</Card.Title>
+            //                         <Card.Text>
+            //                             <strong className='correct-guess'>Correct Pokemon!</strong>
+            //                             {/* <strong>Type 1:</strong> {guessedPokemon.types[0].type.name} <br />
+            //                             <strong>Type 2:</strong> {guessedPokemon.types[1]?.type.name || "None"} <br />
+            //                             <strong>Base Experience:</strong> {guessedPokemon.base_experience} <br />
+            //                             <strong>Abilities:</strong> {guessedPokemon.abilities.map(a => a.ability.name).join(', ')} <br /> */}
+            //                         </Card.Text>
+            //                     </Card.Body>
+            //                 </Card>
+            //             </div>
+            //         </div> 
+            //     </div>
+
+        <Container>
+            <Row className="gx-4 mt-5 justify-content-start">
+                <Col md={3} className={`custom-card ${isCorrect ? 'flip' : ''}`}>
+                    <div className='flip-card-inner'>
+                        <div className='flip-card-front'>
+                            <Card style={{ width: '100%', ...cardStyle }} className={`card-1 ${typeClass}`}>
+                                <Card.Img
+                                    variant="top"
+                                    src={guessedPokemon.sprites.front_default}
+                                    alt={guessedPokemon.name}
+                                    style={{ width: '100%', height: 'auto' }}
+                                />
+                                <Card.Body>
+                                    <Card.Title className='text-capitalize'>{guessedPokemon.name}</Card.Title>
+                                    <Card.Text>
+                                        <strong>Height:</strong> {guessedPokemon.height} {getIcon(feedback.height)} <br />
+                                        <strong>Weight:</strong> {guessedPokemon.weight} {getIcon(feedback.weight)} <br />
+                                        <strong>Type 1:</strong> {guessedPokemon.types[0].type.name} {getIcon(feedback.type1)} <br />
+                                        <strong>Type 2:</strong> {guessedPokemon.types[1]?.type.name || "None"} {getIcon(feedback.type2)} <br />
+                                        <strong>Gen:</strong> {guessedPokemon.generation} {getIcon(feedback.generation)} <br />
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </div>
+                        <div className="flip-card-back" style={{ ...cardStyle }}>
+                            <Card style={{ width: '100%' }} className={`card-1 ${typeClass}`}>
+                                <Card.Body>
+                                    <Card.Title className='text-capitalize'>{guessedPokemon.name}</Card.Title>
+                                    <Card.Text>
+                                        <strong className='correct-guess'>Correct Pokemon!</strong>
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </div>
+                    </div>
+                </Col>
+            </Row>
+        </Container>
+
     );
 };
 
