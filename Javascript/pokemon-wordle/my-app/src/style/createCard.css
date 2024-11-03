@@ -125,9 +125,7 @@
     transform-style: preserve-3d;
     transition: transform 0.8s;
 }
-/* .flip {
-    transform: rotateY(180deg);
-} */
+
 
 .flip-card-back, 
 .flip-card-front {
@@ -151,4 +149,196 @@
 
 .custom-card.flip:hover .flip-card-inner {
     transform: rotateY(180deg);
+}
+
+@keyframes fireAnimation {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+@keyframes waterAnimation {
+    0%, 100% { background-position: 50% 0%; }
+    50% { background-position: 50% 100%; }
+}
+@keyframes grassAnimation {
+    0%, 100% { background-position: 50% 100%; }
+    50% { background-position: 50% 0%; }
+}
+/* ICE */
+@keyframes iceAnimation {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+.type-ice {
+    background: linear-gradient(135deg, #96D9D6, #c0f0f0);
+    background-size: 200% 200%;
+    animation: iceAnimation 6s ease-in-out infinite;
+}
+
+/* ELECTRIC */
+@keyframes electricAnimation {
+    0%, 100% { background-position: 50% 0%; }
+    50% { background-position: 50% 100%; }
+}
+.type-electric {
+    background: linear-gradient(135deg, #F7D02C, #FFD700);
+    background-size: 200% 200%;
+    animation: electricAnimation 2s ease-in-out infinite;
+}
+
+/* FAIRY */
+@keyframes fairyAnimation {
+    0%, 100% { background-position: 100% 0%; }
+    50% { background-position: 0% 100%; }
+}
+.type-fairy {
+    background: linear-gradient(135deg, #D685AD, #f7a8c9);
+    background-size: 200% 200%;
+    animation: fairyAnimation 6s ease-in-out infinite;
+}
+
+/* ROCK */
+@keyframes rockAnimation {
+    0%, 100% { background-position: 0% 100%; }
+    50% { background-position: 100% 0%; }
+}
+.type-rock {
+    background: linear-gradient(135deg, #B6A136, #e0c874);
+    background-size: 200% 200%;
+    animation: rockAnimation 5s ease-in-out infinite;
+}
+
+/* POISON */
+@keyframes poisonAnimation {
+    0%, 100% { background-position: 100% 50%; }
+    50% { background-position: 0% 50%; }
+}
+.type-poison {
+    background: linear-gradient(135deg, #A33EA1, #d075cf);
+    background-size: 200% 200%;
+    animation: poisonAnimation 4s ease-in-out infinite;
+}
+
+/* GROUND */
+@keyframes groundAnimation {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+.type-ground {
+    background: linear-gradient(135deg, #E2BF65, #f0d794);
+    background-size: 200% 200%;
+    animation: groundAnimation 5s ease-in-out infinite;
+}
+
+/* FIGHTING */
+@keyframes fightingAnimation {
+    0%, 100% { background-position: 50% 100%; }
+    50% { background-position: 50% 0%; }
+}
+.type-fighting {
+    background: linear-gradient(135deg, #C22E28, #f26c6c);
+    background-size: 200% 200%;
+    animation: fightingAnimation 3s ease-in-out infinite;
+}
+
+/* GHOST */
+@keyframes ghostAnimation {
+    0%, 100% { background-position: 50% 0%; }
+    50% { background-position: 50% 100%; }
+}
+.type-ghost {
+    background: linear-gradient(135deg, #735797, #9f82c9);
+    background-size: 200% 200%;
+    animation: ghostAnimation 6s ease-in-out infinite;
+}
+
+/* FLYING */
+@keyframes flyingAnimation {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+}
+.type-flying {
+    background: linear-gradient(135deg, #A98FF3, #d0baf8);
+    background-size: 200% 200%;
+    animation: flyingAnimation 5s ease-in-out infinite;
+}
+
+/* DARK */
+@keyframes darkAnimation {
+    0%, 100% { background-position: 100% 100%; }
+    50% { background-position: 0% 0%; }
+}
+.type-dark {
+    background: linear-gradient(135deg, #705746, #8e6b5d);
+    background-size: 200% 200%;
+    animation: darkAnimation 6s ease-in-out infinite;
+}
+
+/* PSYCHIC */
+@keyframes psychicAnimation {
+    0%, 100% { background-position: 0% 100%; }
+    50% { background-position: 100% 0%; }
+}
+.type-psychic {
+    background: linear-gradient(135deg, #F95587, #ff8fa4);
+    background-size: 200% 200%;
+    animation: psychicAnimation 4s ease-in-out infinite;
+}
+
+/* BUG */
+@keyframes bugAnimation {
+    0%, 100% { background-position: 50% 50%; }
+    50% { background-position: 100% 100%; }
+}
+.type-bug {
+    background: linear-gradient(135deg, #A6B91A, #c4d358);
+    background-size: 200% 200%;
+    animation: bugAnimation 5s ease-in-out infinite;
+}
+
+/* DRAGON */
+@keyframes dragonAnimation {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+.type-dragon {
+    background: linear-gradient(135deg, #6F35FC, #8c5cff);
+    background-size: 200% 200%;
+    animation: dragonAnimation 6s ease-in-out infinite;
+}
+
+/* STEEL */
+@keyframes steelAnimation {
+    0%, 100% { background-position: 50% 0%; }
+    50% { background-position: 50% 100%; }
+}
+.type-steel {
+    background: linear-gradient(135deg, #B7B7CE, #d4d4e6);
+    background-size: 200% 200%;
+    animation: steelAnimation 4s ease-in-out infinite;
+}
+/* NORMAL */
+@keyframes normalAnimation {
+    0%, 100% { background-position: 50% 50%; }
+    50% { background-position: 100% 100%; }
+}
+.type-normal {
+    background: linear-gradient(135deg, #A8A77A, #c7c7a6);
+    background-size: 200% 200%;
+    animation: normalAnimation 8s ease-in-out infinite;
+}
+
+.type-fire {
+    background: linear-gradient(45deg, #ff8a00, #e52e71);
+    background-size: 200% 200%;
+    animation: fireAnimation 3s ease-in-out infinite;
+}
+.type-water {
+    background: linear-gradient(135deg, #00d4ff, #0094ff);
+    background-size: 200% 200%;
+    animation: waterAnimation 3s ease-in-out infinite;
+}
+.type-grass {
+    background: linear-gradient(135deg, #00c853, #b2ff59);
+    background-size: 200% 200%;
+    animation: grassAnimation 3s ease-in-out infinite;
 }

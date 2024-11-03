@@ -8,15 +8,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 
-const fetchPoke = async (randomId) => {
-    const reponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
-    if (!reponse.ok) {
-        throw new Error("Pokemon not found")
-    }
-    const data = await reponse.json();
-    return data;
-}
-
 const getGeneration = (id) => {
     if (id <= 151) return 1;
     if (id <= 251) return 2;
@@ -27,6 +18,20 @@ const getGeneration = (id) => {
     if (id <= 809) return 7;
     return 8;
 };
+
+const fetchPoke = async (randomId) => {
+    const reponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
+    if (!reponse.ok) {
+        throw new Error("Pokemon not found")
+    }
+    const data = await reponse.json();
+
+    return  {
+        ...data, 
+        generation: getGeneration(randomId)
+    };
+};
+
 
 const PokemonWordle = () => {
 
@@ -43,88 +48,96 @@ const PokemonWordle = () => {
     useEffect(() => {
         const getPokemon = async () => {
             try{
-            const randomId = Math.floor(Math.random() * 898) + 1;
-            const randomPokemon = await fetchPoke(randomId);
-            SetChosenPokemon(randomPokemon);
+                const randomId = Math.floor(Math.random() * 898) + 1;
+                const randomPokemon = await fetchPoke(randomId);
+                SetChosenPokemon({
+                    ...randomPokemon,
+                    generation: getGeneration(randomId)
+                });
             
-
-            }catch(error){
+            } catch(error) {
                 console.log("failed to fetch random pokemon", error)
             }
         };
         getPokemon(); 
     }, []);
 
-        const handleInputChange = (e) => {
+    const handleInputChange = (e) => {
         setUserGuess(e.target.value);
 
         if (e.target.value.length > 0 && allPokemonNames.length > 0) {
-            // Filter Pokémon names based on the user's input
+            
             const filteredSuggestions = allPokemonNames.filter(pokemon =>
               pokemon.toLowerCase().startsWith(e.target.value.toLowerCase())
             );
             SetSuggestions(filteredSuggestions);
-          } else {
+        } else {
             SetSuggestions([]);
-          }
-        };
-        const handleSuggestionClick = (suggestion) => {
-            setUserGuess(suggestion);
-            SetSuggestions([]);
-          };
-        
-        if (loading) {
-            return <div>Loading Pokémon names...</div>;
         }
-        if (error) {
-            return <div>{error}</div>;
-        }
-
-
-const handleGuessSubmit = async (e) => {
-    e.preventDefault();
-    if(!ChosenPokemon) return;
+    };
+    const handleSuggestionClick = (suggestion) => {
+        setUserGuess(suggestion);
+        SetSuggestions([]);
+    };
     
-    try {
-        const guessedPokemonData = await fetchPoke(userGuess.toLowerCase());
-        setGuessedPokemon(guessedPokemonData);
+    if (loading) {
+        return <div>Loading Pokémon names...</div>;
+    }
+    if (error) {
+        return <div>{error}</div>;
+    }
 
-        if (guessedPokemonData.name === ChosenPokemon.name) {
-            setIsCorrect(true);
-            setFeedback("Correct!")
-            
-        }else {
-            setIsCorrect(false);
+
+    const handleGuessSubmit = async (e) => {
+        e.preventDefault();
+        if(!ChosenPokemon) return;
         
-        }
-        const comparisonFeedback = {
-            name: guessedPokemonData.name,
-            height: guessedPokemonData.height === ChosenPokemon.height
-              ? "Correct"
-              : guessedPokemonData.height < ChosenPokemon.height
-              ? "Too Short"
-              : "Too Tall",
-            weight: guessedPokemonData.weight === ChosenPokemon.weight
-              ? "Correct"
-              : guessedPokemonData.weight < ChosenPokemon.weight
-              ? "Too Light"
-              : "Too Heavy",
-            type1: guessedPokemonData.types[0].type.name === ChosenPokemon.types[0].type.name
-              ? "Correct"
-              : "Wrong Type",
-            type2: (guessedPokemonData.types[1]?.type.name || "None") === (ChosenPokemon.types[1]?.type.name || "None")
-              ? "Correct"
-              : "Wrong Type",
-            generation: getGeneration(guessedPokemonData.id) === getGeneration(ChosenPokemon.id)
-              ? "Correct"
-              : "Wrong Generation",
-          };
+        try {
+            const guessedPokemonData = await fetchPoke(userGuess.toLowerCase());
+            guessedPokemonData.generation = getGeneration(guessedPokemonData.id);
+            
+            setGuessedPokemon(guessedPokemonData);
+
+            if (guessedPokemonData.name === ChosenPokemon.name) {
+                setIsCorrect(true);
+                setFeedback("Correct!")
+                
+            } else {
+                setIsCorrect(false);
+            
+            }
+        
+            const comparisonFeedback = {
+                name: guessedPokemonData.name,
+                height: guessedPokemonData.height === ChosenPokemon.height
+                ? "Correct"
+                : guessedPokemonData.height < ChosenPokemon.height
+                ? "Too Short"
+                : "Too Tall",
+                weight: guessedPokemonData.weight === ChosenPokemon.weight
+                ? "Correct"
+                : guessedPokemonData.weight < ChosenPokemon.weight
+                ? "Too Light"
+                : "Too Heavy",
+                type1: guessedPokemonData.types[0].type.name === ChosenPokemon.types[0].type.name
+                ? "Correct"
+                : "Wrong Type",
+                type2: (guessedPokemonData.types[1]?.type.name || "None") === (ChosenPokemon.types[1]?.type.name || "None")
+                ? "Correct"
+                : "Wrong Type",
+                generation: guessedPokemonData.generation === ChosenPokemon.generation
+                ? "Correct"
+                : "Wrong Generation",
+            };
 
         setFeedback(comparisonFeedback);
-        setPreviousGuesses((prev) => [{guessedPokemon: guessedPokemonData, feedback: comparisonFeedback || "Correct!" }, ...prev]);
+        setPreviousGuesses((prev) => [
+            { guessedPokemon: guessedPokemonData, feedback: comparisonFeedback },
+             ...prev,
+        ]);
     
     
-    }catch (error) {
+    } catch (error) {
         setFeedback({ name: "", error: "Invalid Pokémon name, please try again." });
         console.log("Failed to fetch guessed Pokemon", error)
     }
@@ -136,7 +149,7 @@ return (
         <div className='form-group'>
             <input
             type='text'
-            className='form-control'
+            className='form-control pokedex-search'
             placeholder='Enter Pokemon name'
             value={userGuess}
             onChange={handleInputChange}
@@ -146,7 +159,8 @@ return (
             handleSelectSuggestion={handleSuggestionClick}
             />
         </div>
-        <button type='submit' className='btn btn-primary mt-2'>
+        <button type='submit' className="btn pokedex-button mt-2">
+            <span className='pokedex-led'></span>
             Guess
         </button>
     </form>

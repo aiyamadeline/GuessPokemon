@@ -31,30 +31,30 @@ const PokemonCard = ({ guessedPokemon, feedback, isCorrect }) => {
         }
     };
 
-    const typeColours = {
-        normal: '#A8A77A',
-        fire: '#EE8130',
-        water: '#6390F0',
-        electric: '#F7D02C',
-        grass: '#7AC74C',
-        ice: '#96D9D6',
-        fighting: '#C22E28',
-        poison: '#A33EA1',
-        ground: '#E2BF65',
-        flying: '#A98FF3',
-        psychic: '#F95587',
-        bug: '#A6B91A',
-        rock: '#B6A136',
-        ghost: '#735797',
-        dragon: '#6F35FC',
-        dark: '#705746',
-        steel: '#B7B7CE',
-        fairy: '#D685AD',
-    };
+    // const typeColours = {
+    //    normal: '#A8A77A',
+    //     fire: '#EE8130',
+    //     water: '#6390F0',
+    //     electric: '#F7D02C',
+    //     grass: '#7AC74C',
+    //     ice: '#96D9D6',
+    //     fighting: '#C22E28',
+    //     poison: '#A33EA1',
+    //     ground: '#E2BF65',
+    //     flying: '#A98FF3',
+    //     psychic: '#F95587',
+    //     bug: '#A6B91A',
+    //     rock: '#B6A136',
+    //     ghost: '#735797',
+    //     dragon: '#6F35FC',
+    //     dark: '#705746', 
+    //     steel: '#B7B7CE',
+    //     fairy: '#D685AD',
+    // };
 
-    const cardStyle = {
-        backgroundColor: typeColours[guessedPokemon.types[0].type.name] || '#FFF',
-    }
+    // const cardStyle = {
+    //     backgroundColor: typeColours[guessedPokemon.types[0].type.name] || '#FFF',
+    // }
 
     return (
 
@@ -62,8 +62,8 @@ const PokemonCard = ({ guessedPokemon, feedback, isCorrect }) => {
             <Row className="gx-4 gy-4 mt-5 justify-content-start">
                 <Col md={3} className={`custom-card ${isCorrect ? 'flip' : ''}`}>
                     <div className='flip-card-inner'>
-                        <div className='flip-card-front'>
-                            <Card style={{ width: '100%', ...cardStyle }} className={`card-1 ${typeClass}`}>
+                        <div className={`flip-card-front ${typeClass}`}>
+                            <Card style={{ width: '100%' }} className={`card-1 ${typeClass}`}>
                                 <Card.Img
                                     variant="top"
                                     src={guessedPokemon.sprites.front_default}
@@ -82,7 +82,7 @@ const PokemonCard = ({ guessedPokemon, feedback, isCorrect }) => {
                                 </Card.Body>
                             </Card>
                         </div>
-                        <div className="flip-card-back" style={{ ...cardStyle }}>
+                        <div className={`flip-card-back ${typeClass}`}>
                             <Card style={{ width: '100%' }} className={`card-1 ${typeClass}`}>
                                 <Card.Body>
                                     <Card.Title className='text-capitalize'>{guessedPokemon.name}</Card.Title>
